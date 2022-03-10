@@ -1,15 +1,20 @@
 # oai-cn5g-simple
-The goal of this repository is to create a simplified 5G Core deployment based on the Open Air Interface (OAI) 
-OPENAIR-CN-5G project.  Numerous modifications have been made, which are outlined below.
+The goal of this repository is to create a simplified Kubernetes 5G Core deployment based on the Open Air Interface (OAI) 
+OPENAIR-CN-5G project (https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/).  Numerous modifications have been made, which 
+are outlined below.
 
-* HTTP2 is used on all Service Based Interfaces (SBIs).  Relevant configmaps with apprpriate values are already set.
+* HTTP2 is used on all Service Based Interfaces (SBIs).  Relevant Configmaps with appropriate values are already set.
 * Some custom images for the SMF and AMF are used
 * To simplify things, multus is disabled
 * Helper install and uninstall scripts are included, which deploy the helm charts in the
 correct order
+* Charts which aren't using my custom builds are using version v1.3.0 of the images found in the rdefosseoai repo.  One
+notable exception to this is the UPF/PGW, which is using v1.1.2.
+* The tcpdump container is not used in this deployment.  It has been commented out of the deployment files.
 
-In addition I've included a UERANSIM build that has some tools built into it (such as ping)
-to make its use easier.  This image is based on the open source implementation found here: 
+In addition to the 5G core, I've included a UERANSIM build that has some tools built into it (such as ping)
+to make its use easier.  It also has some UE and gNodeB config files that are tailored to the OAI implementation (e.g. 
+appropriate MNC, MCC, APN, keys, etc.).  This image is based on the open source implementation found here: 
 https://github.com/aligungr/UERANSIM.  Using the manifest I've provided, you can deploy
 the UERANSIM client as a Pod in your cluster, for simplified communication to and from 
 the 5G packet core.
