@@ -51,7 +51,7 @@ main repo directory where the ueransim.yaml manifest is located.<br><br>
     `$ kubectl get pods -n oai</code>` <--- This will show your your AMF IP<br><br>
     Assuming my UERANSIM was on 192.168.0.128 and my AMF had the IP 192.168.18.136 my 
     gnb config file would contain the following:<br>
-    ```json
+    ```
     linkIp: 192.168.0.228   # gNB's local IP address for Radio Link Simulation (Usually same with local IP)
     ngapIp: 192.168.0.228   # gNB's local IP address for N2 Interface (Usually same with local IP)
     gtpIp: 192.168.0.228    # gNB's local IP address for N3 Interface (Usually same with local IP)
