@@ -2,8 +2,8 @@
 The goal of this repository is to create a simplified 5G Core deployment based on the Open Air Interface (OAI) 
 OPENAIR-CN-5G project.  Numerous modifications have been made, which are outlined below.
 
-* HTTP2 is used on all Service Based Interfaces (SBIs)
-* Some customer images for the SMF and AMF are used
+* HTTP2 is used on all Service Based Interfaces (SBIs).  Relevant configmaps with apprpriate values are already set.
+* Some custom images for the SMF and AMF are used
 * To simplify things, multus is disabled
 * Helper install and uninstall scripts are included, which deploy the helm charts in the
 correct order
@@ -22,28 +22,23 @@ the 5G packet core.
 deployed (e.g. <code>kubectl get nodes</code> should show the nodes of your cluster)
 4. If this is your first time to deploy, its probably best to go slowly.  Run each 
 command below and troubleshoot any issues you see.<br>
-<code>helm install mysql mysql/ -n oai <br>
-helm install nrf oai-nrf/ -n oai <br>
-helm install udr oai-udr/ -n oai<br>
-helm install udm oai-udm/ -n oai<br>
-helm install ausf oai-ausf/ -n oai<br>
-helm install amf oai-amf/ -n oai<br>
-helm install smf oai-smf/ -n oai<br>
-helm install upf oai-spgwu-tiny/ -n oai
-</code>
-5. Deploy the UERANSIM pod.  <br>Make sure you are not in the charts directory, but in the 
-main repo directory where the ueransim.yaml manifest is located.<br>
-<code>kubectl apply -f ueransim.yaml</code>
-6. Obtain the AMF IP address<br>
-<code>kubectl get pods -n oai -o wide</code>
-7. Excec into the UERANSIM pod<br>
-<code>kubectl exec --stdin --tty ueransim -- /bin/bash</code>
-8. Create new config files for the UE and gNodeB<br>
-<code>cd UERANSIM/<br>
-cp config/open5gs-gnb.yaml config/oai-gnb.yaml<br>
-cp config/open5gs-ue.yaml config/oai-ue-yaml
-</code>
-9. Edit the oai-gnb.yaml config file.  <br>The MNC and MCC should be set appropriately.  Verify the MCC is 
+    ```
+    helm install mysql mysql/ -n oai <br>
+    helm install nrf oai-nrf/ -n oai <br>
+    helm install udr oai-udr/ -n oai<br>
+    helm install udm oai-udm/ -n oai<br>
+    helm install ausf oai-ausf/ -n oai<br>
+    helm install amf oai-amf/ -n oai<br>
+    helm install smf oai-smf/ -n oai<br>
+    helm install upf oai-spgwu-tiny/ -n oai
+    ```
+5. Deploy the UERANSIM pod.  
+    Make sure you are not in the charts directory, but in the 
+main repo directory where the ueransim.yaml manifest is located.<br><br>
+    `kubectl apply -f ueransim.yaml`
+6. Excec into the UERANSIM pod<br>
+    `kubectl exec --stdin --tty ueransim -- /bin/bash`
+7. Edit the oai-gnb.yaml config file.  <br>The MNC and MCC should be set appropriately.  Verify the MCC is 
 208, the MNC should be 95. You will need to set the `linkIP`, `ngapIp` and `gtpIp` to the be eth0 interface IP of the 
 UERANSIM Pod.  See below for examples.
 <br>
@@ -74,7 +69,7 @@ gnb config file would contain the following:<br>
     208950000000033
     208950000000034
 
-    The only field you should need to edit in the oai-ue.yaml file is the IP address of the gNodeB.  Open the manifest file
+    The only field you should need to edit in the `oai-ue.yaml` file is the IP address of the gNodeB.  Open the manifest file
     and set the `gnbSearchList` appropriately.  If my UERANSIM was using IP address 192.168.0.128, my config would like
     like the following:
     ```
@@ -85,9 +80,9 @@ gnb config file would contain the following:<br>
     Feel free to make copies of this manifest using the other IMSI values.  This will allow you to attach multiple UEs
     at the same time if you desire to.
     
-11. Attach gNodeB<br>
+11. Attach gNodeB to AMF<br>
     If we have done everything correctly, our gNodeB should connect without any issue.  To attempt a connection to the
-    AMF, run:<br>
+    AMF, run:<br><br>
     ```./build/nr-gnb -c config/oai-gnb.yaml```<br><br>If all goes well you should see something like:<br>
     ```
     ./build/nr-gnb -c config/oai-gnb.yaml 
