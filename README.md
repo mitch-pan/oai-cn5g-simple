@@ -21,12 +21,19 @@ the 5G packet core.
 
 ## Deployment Steps
 
-1. Clone the repository (git clone https://github.com/mitch-pan/oai-cn5g-simple.git)
-2. cd into the oai-cn5g-simple/charts directory
-3. Ensure you are connected to the Kubernetes cluster where you want your 5G core 
-deployed (e.g. <code>kubectl get nodes</code> should show the nodes of your cluster)
+1. Clone this repository
+
+    `git clone https://github.com/mitch-pan/oai-cn5g-simple.git`
+2. cd into the charts directory
+
+    `cd oai-cn5g-simple/charts`
+3. Ensure K8s connectivity
+
+    Make sure you are connected to the Kubernetes cluster where you want your 5G core 
+    deployed (e.g. <code>kubectl get nodes</code> should show the nodes of your cluster)
 4. If this is your first time to deploy, its probably best to go slowly.  Run each 
-command below and troubleshoot any issues you see.<br>
+command below and troubleshoot any issues you see.
+
     ```
     helm install mysql mysql/ -n oai <br>
     helm install nrf oai-nrf/ -n oai <br>
@@ -37,20 +44,23 @@ command below and troubleshoot any issues you see.<br>
     helm install smf oai-smf/ -n oai<br>
     helm install upf oai-spgwu-tiny/ -n oai
     ```
-5. Deploy the UERANSIM pod.  
+5. Deploy the UERANSIM pod
+ 
     Make sure you are not in the charts directory, but in the 
-main repo directory where the ueransim.yaml manifest is located.<br><br>
+    main repo directory where the ueransim.yaml manifest is located.<br><br>
     `kubectl apply -f ueransim.yaml`
-6. Excec into the UERANSIM pod<br><br>
+6. Excec into the UERANSIM pod
+
     `kubectl exec --stdin --tty ueransim -- /bin/bash`
-7. Edit the oai-gnb.yaml config file.  <br>The MNC and MCC should be set appropriately.  Verify the MCC is 
+7. Edit the oai-gnb.yaml config file.  
+    <br>The MNC and MCC should be set appropriately.  Verify the MCC is 
     208, the MNC should be 95. You will need to set the `linkIP`, `ngapIp` and `gtpIp` to the be eth0 interface IP of the 
     UERANSIM Pod.  See below for examples.
     <br>
     ```
     json
     mcc: '208'          # Mobile Country Code value<br>
-    mnc: '95'           # Mobile Network Code value (2 or 3 digits)`<br><br>
+    mnc: '95'           # Mobile Network Code value (2 or 3 digits)
     ```
     `$ kubectl get pod ueransim -o wide</code> `<--- This will show your UERANSIM IP<br>
     `$ kubectl get pods -n oai</code>` <--- This will show your your AMF IP<br><br>
