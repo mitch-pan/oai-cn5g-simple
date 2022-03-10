@@ -56,7 +56,7 @@ main repo directory where the ueransim.yaml manifest is located.<br><br>
     ngapIp: 192.168.0.228   # gNB's local IP address for N2 Interface (Usually same with local IP)
     gtpIp: 192.168.0.228    # gNB's local IP address for N3 Interface (Usually same with local IP)
     ```
-    ```json
+    ```
     amfConfigs:
       - address: 192.168.18.136
         port: 38412
@@ -140,5 +140,6 @@ main repo directory where the ueransim.yaml manifest is located.<br><br>
     Feel to explore the logs of the Pods, they have tons of information about the messaging back and forth, registration
     status, etc.
     
-    For example, to see AMF logs, you could run the following (replacing the xyz with the appropriate suffix)
+    For example, to see AMF logs, you could run the following (replacing the xyz with the appropriate suffix)<br>
+    
     `kubectl logs oai-amf-xyz -n oai` 
