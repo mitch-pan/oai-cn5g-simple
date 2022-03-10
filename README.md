@@ -36,20 +36,21 @@ command below and troubleshoot any issues you see.<br>
     Make sure you are not in the charts directory, but in the 
 main repo directory where the ueransim.yaml manifest is located.<br><br>
     `kubectl apply -f ueransim.yaml`
-6. Excec into the UERANSIM pod<br>
+6. Excec into the UERANSIM pod<br><br>
     `kubectl exec --stdin --tty ueransim -- /bin/bash`
 7. Edit the oai-gnb.yaml config file.  <br>The MNC and MCC should be set appropriately.  Verify the MCC is 
-208, the MNC should be 95. You will need to set the `linkIP`, `ngapIp` and `gtpIp` to the be eth0 interface IP of the 
-UERANSIM Pod.  See below for examples.
-<br>
-    ```json
+    208, the MNC should be 95. You will need to set the `linkIP`, `ngapIp` and `gtpIp` to the be eth0 interface IP of the 
+    UERANSIM Pod.  See below for examples.
+    <br>
+    ```
+    json
     mcc: '208'          # Mobile Country Code value<br>
     mnc: '95'           # Mobile Network Code value (2 or 3 digits)`<br><br>
     ```
     `$ kubectl get pod ueransim -o wide</code> `<--- This will show your UERANSIM IP<br>
     `$ kubectl get pods -n oai</code>` <--- This will show your your AMF IP<br><br>
-Assuming my UERANSIM was on 192.168.0.128 and my AMF had the IP 192.168.18.136 my 
-gnb config file would contain the following:<br>
+    Assuming my UERANSIM was on 192.168.0.128 and my AMF had the IP 192.168.18.136 my 
+    gnb config file would contain the following:<br>
     ```json
     linkIp: 192.168.0.228   # gNB's local IP address for Radio Link Simulation (Usually same with local IP)
     ngapIp: 192.168.0.228   # gNB's local IP address for N2 Interface (Usually same with local IP)
