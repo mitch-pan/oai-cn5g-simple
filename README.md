@@ -35,15 +35,16 @@ the 5G packet core.
 command below and troubleshoot any issues you see.
 
     ```
-    helm install mysql mysql/ -n oai <br>
-    helm install nrf oai-nrf/ -n oai <br>
-    helm install udr oai-udr/ -n oai<br>
-    helm install udm oai-udm/ -n oai<br>
-    helm install ausf oai-ausf/ -n oai<br>
-    helm install amf oai-amf/ -n oai<br>
-    helm install smf oai-smf/ -n oai<br>
+    helm install mysql mysql/ -n oai 
+    helm install nrf oai-nrf/ -n oai 
+    helm install udr oai-udr/ -n oai
+    helm install udm oai-udm/ -n oai
+    helm install ausf oai-ausf/ -n oai
+    helm install amf oai-amf/ -n oai
+    helm install smf oai-smf/ -n oai
     helm install upf oai-spgwu-tiny/ -n oai
     ```
+   After these work you can use the `install_all.sh` script instead. 
 5. Deploy the UERANSIM pod
  
     Make sure you are not in the charts directory, but in the 
@@ -96,7 +97,8 @@ command below and troubleshoot any issues you see.
     Feel free to make copies of this manifest using the other IMSI values.  This will allow you to attach multiple UEs
     at the same time if you desire to.
     
-11. Attach gNodeB to AMF<br>
+11. Attach gNodeB to AMF
+
     If we have done everything correctly, our gNodeB should connect without any issue.  To attempt a connection to the
     AMF, run:<br><br>
     ```./build/nr-gnb -c config/oai-gnb.yaml```<br><br>If all goes well you should see something like:<br>
@@ -111,6 +113,7 @@ command below and troubleshoot any issues you see.
     [2022-03-10 20:48:24.816] [ngap] [info] NG Setup procedure is successful
     ```
 12. UE Attach
+
     While the gNodeB is running, we'll execute the UE attach in a different tab/window.  Use kubectl to connect to the 
     pod.<br><br>
     `kubectl exec --stdin --tty ueransim -- /bin/bash`<br><br>
