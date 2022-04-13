@@ -31,7 +31,12 @@ the 5G packet core.
 
     Make sure you are connected to the Kubernetes cluster where you want your 5G core 
     deployed (e.g. <code>kubectl get nodes</code> should show the nodes of your cluster)
-4. If this is your first time to deploy, its probably best to go slowly.  Run each 
+
+4. Create the oai namespace
+
+    `kubectl create namespace oai`
+    
+5. If this is your first time to deploy, its probably best to go slowly.  Run each 
 command below and troubleshoot any issues you see.
 
     ```
