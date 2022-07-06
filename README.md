@@ -70,7 +70,7 @@ command below and troubleshoot any issues you see.
     ```
     `$ kubectl get pod ueransim -o wide</code> `<--- This will show your UERANSIM IP<br>
     `$ kubectl get pods -n oai</code>` <--- This will show your your AMF IP<br><br>
-    Assuming my UERANSIM was on 192.168.0.128 and my AMF had the IP 192.168.18.136 my 
+    Assuming my UERANSIM was on 192.168.0.228 and my AMF had the IP 192.168.18.136 my 
     gnb config file would contain the following:<br>
     ```
     linkIp: 192.168.0.228   # gNB's local IP address for Radio Link Simulation (Usually same with local IP)
